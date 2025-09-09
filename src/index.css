@@ -1,0 +1,139 @@
+* {
+	box-sizing: border-box;
+}
+@import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+html,
+body,
+#root {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	font-family: 'Kaushan Script', cursive;
+	font-optical-sizing: auto;
+}
+
+body {
+	background: #f0f0f0;
+}
+
+body {
+	margin: 0;
+	font-family: 'Kaushan Script', cursive;
+	font-optical-sizing: auto;
+	font-weight: 400;
+	font-style: normal;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	background-color: #444444;
+}
+input,
+textarea {
+	font-family: 'Kaushan Script', cursive;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	font-size: 1.75rem;
+	mix-blend-mode: difference;
+}
+textarea {
+	display: flex;
+	vertical-align: middle;
+}
+button {
+	font-family: 'Plus Jakarta Sans', sans-serif;
+	font-weight: 700;
+}
+.inputs {
+	position: absolute;
+	z-index: 10000;
+	top: 200%;
+	left: 0;
+	color: #fff;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	row-gap: 1rem;
+	text-align: center;
+	width: 600px;
+	margin-left: -300px;
+	margin-bottom: -250px;
+	transition: all 0.5s ease-in-out;
+}
+.inputs.hide {
+	top: calc(50vh - 160px);
+	transition: all 0.5s ease-in-out;
+}
+.input {
+	background-color: rgba(50, 50, 50, 0.2);
+	color: #fff;
+	mix-blend-mode: difference;
+	width: 280px;
+	height: 140px;
+	text-align: center;
+	border-radius: 10px;
+	outline: none;
+	border: none;
+	padding: 0.5rem;
+	opacity: 1;
+	transition: all 0.5s ease-in-out;
+	overflow: hidden;
+}
+.input::placeholder {
+	color: #fff;
+}
+.hide .input {
+	height: 0;
+	opacity: 0;
+}
+.hide .envBtn {
+	opacity: 0;
+	transition: all 0.5s ease-in-out;
+}
+.input:focus {
+	outline: none;
+	border: none;
+	background-color: rgba(50, 50, 50, 0.4);
+}
+.inputs .title {
+	font-size: 1.35rem;
+	line-height: 1;
+	font-weight: bold;
+	color: #4a4a4a;
+	color: #e6bcbc;
+	display: none;
+}
+button.go {
+	font-size: 1.5rem;
+	font-weight: 700;
+	border-radius: 10px;
+	background-color: rgba(50, 50, 50, 0.5);
+	color: #fff;
+	border: none;
+	outline: 2px solid #898989;
+	padding: 0.5rem;
+	cursor: pointer;
+	width: fit-content;
+	padding: 0.5rem 1rem;
+	font-family: 'Kaushan Script', cursive;
+}
+.env {
+	display: flex;
+	column-gap: 0.75rem;
+	row-gap: 0.75rem;
+	max-width: 80vw;
+	/* margin: 0 auto; */
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+.envBtn {
+	font-size: 0.8rem;
+	font-weight: 500;
+	border-radius: 4px;
+	background-color: rgba(50, 50, 50, 0.3);
+	color: #ececec;
+	border: none;
+	outline: 1px solid #3a3a3a;
+	padding: 0.2rem 0.4rem;
+	transition: all 0.5s ease-in-out;
+}
