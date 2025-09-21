@@ -27,6 +27,8 @@ import { useControls } from 'leva';
 // import * as BufferGeometryUtils from 'three/addons/utils/BufferGeometryUtils.js'
 import { create } from 'zustand';
 import { useShallow } from 'zustand/react/shallow';
+import { s } from 'framer-motion/client';
+import { clearcoat, specularColor } from 'three/tsl';
 // https://www.youtube.com/watch?v=IonioG40MB0
 const textAreaDefaultText =
 	'Enter your emotion, \nfeeling or thought.\nThen let it float away';
@@ -50,8 +52,9 @@ const useBalloonStore = create((set) => ({
 	label: 'Enter your emotion, \nfeeling or thought.\nThen let it float away',
 	text: 'Enter your emotion, \nfeeling or thought.\nThen let it float away',
 	fixed: true,
+	show: true,
 	userSelected: false,
-
+	setShow: (show) => set({ show }),
 	setLabel: (label) => set({ label }),
 	setUserSelected: (selected) => set({ userSelected: selected }),
 	setFixed: (fixed) => {
@@ -177,21 +180,17 @@ const App = () => {
 	return (
 		<Canvas shadows>
 			<Experience />
-			<OrbitControls
-				autoRotateSpeed={0.85}
-				zoomSpeed={0.75}
-				minPolarAngle={Math.PI / 4}
-				maxPolarAngle={Math.PI}
-			/>
 		</Canvas>
 	);
 };
 function Experience(props) {
 	// const camRef = useRef()
 	const [camRef, setCamRef] = useState(null);
+	const [showBalloon, setShowBalloon] = useState(true);
 	// const [camControlsRef, setControlsRef] = useState(null)
 	const balloonRef = useRef();
 	const camControlsRef = useRef();
+	const camTarget = useRef([0, 0, 0]);
 	// const { env } = useEnvironmentStore(useShallow((state) => ({ env: state.env })))
 	const { map } = useEnvironmentStore(
 		useShallow((state) => ({ map: state.map }))
@@ -205,12 +204,30 @@ function Experience(props) {
 			balloonRef.current.position.set(0, 0.2, 0);
 		} else {
 			const multiplier = balloonRef.current.position.y > 20 ? 0.15 : 0.05;
-			balloonRef.current.position.x += Math.sin(clock.elapsedTime) * multiplier; //* Math.random()
-			balloonRef.current.position.y *= 1.005;
+			showBalloon
+				? (balloonRef.current.position.x +=
+						Math.sin(clock.elapsedTime) * multiplier)
+				: (balloonRef.current.position.x *= 0.98);
+			balloonRef.current.position.y *= showBalloon ? 1.005 : 0.985;
+			if (balloonRef.current.position.y > 500) {
+				useBalloonStore.getState().setShow(false);
+				setShowBalloon(false);
+			}
+			if (
+				balloonRef.current.position.y <= 0.1 &&
+				!useBalloonStore.getState().fixed &&
+				!showBalloon
+			) {
+				useBalloonStore.getState().setFixed(true);
+				setShowBalloon(true);
+				balloonRef.current.position.y = 0.2;
+				balloonRef.current.rotation.x = 0;
+				balloonRef.current.rotation.y = 0;
+				balloonRef.current.rotation.z = 0;
+				balloonRef.current.position.set(0, 0.2);
+			}
 		}
-		// camControlsRef.current.lookInDirection(balloonRef.current.position, true)
-		//camRef.current.lookAt(balloonRef.current.position)
-		// camControlsRef.current.lookInDirection(balloonRef.current.position, true)
+		camControlsRef.current.target.copy(balloonRef.current.position);
 	});
 
 	return (
@@ -221,34 +238,52 @@ function Experience(props) {
 				fov={80}
 				position={[10, 4, 10]}
 			/>
-			<hemisphereLight
-				position={[0, 1, 0]}
-				intensity={0.5}
-				color='white'
-				groundColor='white'
+			{/* <hemisphereLight
+				position={[0, 5, -2]}
+				intensity={0.05}
+				color='#3a3a3aff'
+				groundColor='#3a3a3aff'
+			/> */}
+			{/* <ambientLight intensity={0.15} color={'#3a3a3aff'} /> */}
+			<spotLight
+				position={[0, 10, 2]}
+				angle={0.5}
+				penumbra={0.5}
+				intensity={0.85}
+				color={'#3a3a3aff'}
+				castShadow
 			/>
-			<ambientLight intensity={0.5} />
-			{/* <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={0.5} /> */}
 			<Environment
 				background={true}
-				environmentIntensity={1}
+				environmentIntensity={0.8}
 				backgroundBlurriness={0} // optional blur factor between 0 and 1 (default: 0, only works with three 0.146 and up)
 				backgroundIntensity={1}
 				files={map}
 				// resolution={512}
 			/>
 			<group ref={balloonRef} position={[0, 0.1, 0]}>
-				<Balloon scale={[1, 0, 1]} />
-				<SoftShadows />
+				{showBalloon && <Balloon scale={[1, 0, 1]} />}
+				{showBalloon && <SoftShadows />}
 			</group>
 			<InputBox
 				value={useBalloonStore((state) => state.label)}
 				onChange={(e) => useBalloonStore.setState({ label: e.target.value })}
 			/>
-			<CameraControls
+			{/* <CameraControls
 				camera={camRef}
 				ref={camControlsRef}
-				lookInDirection={[0, 0, 0]}
+				
+			/> */}
+			<OrbitControls
+				autoRotateSpeed={0.85}
+				zoomSpeed={0.75}
+				minPolarAngle={Math.PI / 4}
+				maxPolarAngle={Math.PI}
+				maxZoom={1}
+				minZoom={1}
+				enableZoom={false}
+				enableDamping
+				ref={camControlsRef}
 			/>
 		</>
 	);
@@ -274,9 +309,7 @@ function InputBox(props) {
 					onChange={(e) => useBalloonStore.setState({ label: e.target.value })}
 				/>
 				<button
-					onClick={(e) =>
-						useBalloonStore.getState().setFixed(fixed ? false : true)
-					}
+					onClick={(e) => useBalloonStore.getState().setFixed(false)}
 					className='go'
 				>
 					{fixed ? 'Let it go' : 'Set another emotion, feeling or thought free'}
@@ -447,7 +480,25 @@ function Balloon(props) {
 	const { nodes, materials } = useGLTF('balloon.glb');
 	const { debug } = useControls({ debug: false });
 	// const pos = { x: 0, y: 180, z: -30.5 };
-	const { pos, rotX, rotY, rotZ, scaleX, scaleY, scaleZ } = useControls({
+	const {
+		pos,
+		rotX,
+		rotY,
+		rotZ,
+		scaleX,
+		scaleY,
+		scaleZ,
+		specularIntensity,
+		specularColor,
+		iridescence,
+		iridescenceIOR,
+		reflectivity,
+		dispersion,
+		roughness,
+		metalness,
+		clearcoat,
+		clearcoatRoughness,
+	} = useControls({
 		pos: {
 			x: 0,
 			y: 180,
@@ -462,6 +513,16 @@ function Balloon(props) {
 		scaleX: 150.0,
 		scaleY: 60,
 		scaleZ: 75,
+		specularIntensity: 0.75,
+		specularColor: '#757575ff',
+		iridescence: 0.5,
+		iridescenceIOR: 1.5,
+		reflectivity: 1,
+		dispersion: 0.5,
+		roughness: 0.05,
+		metalness: 0.1,
+		clearcoat: 0.1,
+		clearcoatRoughness: 1,
 	});
 	const meshRef = useRef();
 	useFrame(({ clock }) => {
@@ -488,11 +549,22 @@ function Balloon(props) {
 			rotation={[0, Math.PI * 1.25, 0]}
 			wireframe={debug}
 		>
-			<meshStandardMaterial
-				color='rgba(170, 2, 2, 1)'
-				roughness={0.1}
+			<meshPhysicalMaterial
+				color='rgba(170, 0, 0, 1)'
+				roughness={roughness}
+				metalness={metalness}
+				emissive={'rgb(50, 50, 50,0.2)'}
+				specularIntensity={specularIntensity}
+				specularColor={specularColor}
+				iridescence={iridescence}
+				iridescenceIOR={iridescenceIOR}
+				reflectivity={reflectivity}
+				dispersion={dispersion}
+				clearcoat={clearcoat}
+				clearcoatRoughness={clearcoatRoughness}
 				opacity={1}
 				wireframe={debug}
+				envMapIntensity={0.6}
 			/>
 			<TextDecal
 				position={[pos.x, pos.y, pos.z]}
