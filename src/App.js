@@ -1,9 +1,9 @@
 import { useRef, useState } from 'react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { fragment, vertex } from './Shader';
-import * as THREE from 'three';
-import { transform } from 'framer-motion';
-import { EXRLoader } from 'three-stdlib';
+import { Canvas, useFrame } from '@react-three/fiber';
+// import { fragment, vertex } from './Shader';
+// import * as THREE from 'three';
+// import { transform } from 'framer-motion';
+
 import { easing } from 'maath';
 import {
 	useGLTF,
@@ -11,14 +11,14 @@ import {
 	Decal,
 	Environment,
 	OrbitControls,
-	RandomizedLight,
-	AccumulativeShadows,
+	// RandomizedLight,
+	// AccumulativeShadows,
 	SoftShadows,
 	Text,
-	Grid,
-	MeshDistortMaterial,
-	CameraControls,
-	MeshWobbleMaterial,
+	// Grid,
+	// MeshDistortMaterial,
+	// CameraControls,
+	// MeshWobbleMaterial,
 	PerspectiveCamera,
 	Html,
 	RenderTexture,
@@ -27,17 +27,17 @@ import { useControls } from 'leva';
 // import * as BufferGeometryUtils from 'three/addons/utils/BufferGeometryUtils.js'
 import { create } from 'zustand';
 import { useShallow } from 'zustand/react/shallow';
-import { s } from 'framer-motion/client';
-import { clearcoat, specularColor } from 'three/tsl';
+// import { s } from 'framer-motion/client';
+// import { clearcoat, specularColor } from 'three/tsl';
 // https://www.youtube.com/watch?v=IonioG40MB0
 const textAreaDefaultText =
 	'Enter your emotion, \nfeeling or thought.\nThen let it float away';
-const apartment = await import('@pmndrs/assets/hdri/apartment.exr');
-const originalPos = {
-	x: 0,
-	y: 180,
-	z: -30.5,
-};
+// const apartment = await import('@pmndrs/assets/hdri/apartment.exr');
+// const originalPos = {
+// 	x: 0,
+// 	y: 180,
+// 	z: -30.5,
+// };
 const setDefaultText = () => {
 	const textfield = document.getElementById('textarea');
 	textfield.value = '';
@@ -185,12 +185,12 @@ const App = () => {
 };
 function Experience(props) {
 	// const camRef = useRef()
-	const [camRef, setCamRef] = useState(null);
+	// const [camRef, setCamRef] = useState(null);
 	const [showBalloon, setShowBalloon] = useState(true);
 	// const [camControlsRef, setControlsRef] = useState(null)
 	const balloonRef = useRef();
 	const camControlsRef = useRef();
-	const camTarget = useRef([0, 0, 0]);
+	// const camTarget = useRef([0, 0, 0]);
 	// const { env } = useEnvironmentStore(useShallow((state) => ({ env: state.env })))
 	const { map } = useEnvironmentStore(
 		useShallow((state) => ({ map: state.map }))
@@ -232,12 +232,7 @@ function Experience(props) {
 
 	return (
 		<>
-			<PerspectiveCamera
-				ref={setCamRef}
-				makeDefault
-				fov={80}
-				position={[10, 4, 10]}
-			/>
+			<PerspectiveCamera makeDefault fov={80} position={[10, 4, 10]} />
 			{/* <hemisphereLight
 				position={[0, 5, -2]}
 				intensity={0.05}
@@ -477,7 +472,7 @@ function InputBox(props) {
 }
 
 function Balloon(props) {
-	const { nodes, materials } = useGLTF('balloon.glb');
+	const { nodes } = useGLTF('balloon.glb');
 	const { debug } = useControls({ debug: false });
 	// const pos = { x: 0, y: 180, z: -30.5 };
 	const {
