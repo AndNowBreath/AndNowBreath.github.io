@@ -468,14 +468,7 @@ function InputBox(props) {
 								>
 									Garden
 								</button>
-								<button
-									onClick={(e) =>
-										useEnvironmentStore.getState().setEnv('hill')()
-									}
-									className='envBtn'
-								>
-									Hill
-								</button>
+
 								<button
 									onClick={(e) =>
 										useEnvironmentStore.getState().setEnv('park')()
