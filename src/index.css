@@ -116,24 +116,84 @@ button.go {
 	padding: 0.5rem 1rem;
 	font-family: 'Kaushan Script', cursive;
 }
+button.btn {
+	font-size: 1.25rem;
+	font-weight: 500;
+	border-radius: 10px;
+	background-color: rgba(50, 50, 50, 0.5);
+	color: #fff;
+	border: none;
+	outline: 2px solid #898989;
+	padding: 0.5rem;
+	cursor: pointer;
+	width: fit-content;
+	padding: 0.5rem 1rem;
+	font-family: 'Kaushan Script', cursive;
+}
+
 .env {
-	display: flex;
-	column-gap: 0.75rem;
-	row-gap: 0.75rem;
-	max-width: 80vw;
-	/* margin: 0 auto; */
-	align-items: center;
-	justify-content: center;
-	flex-wrap: wrap;
+	position: absolute;
+	top: 0;
+	margin-top: -50%;
+	z-index: 1;
+	padding: 2.5rem;
+	background-color: rgba(50, 50, 50, 0.75);
+	border-radius: 14px;
+	.inner {
+		display: flex;
+		column-gap: 1cqw;
+		margin-top: 2rem;
+		row-gap: 1rem;
+		max-width: 400px;
+		/* margin: 0 auto; */
+		align-items: center;
+		justify-content: center;
+		flex-wrap: wrap;
+	}
 }
 .envBtn {
-	font-size: 0.8rem;
+	font-size: 1rem;
 	font-weight: 500;
 	border-radius: 4px;
-	background-color: rgba(50, 50, 50, 0.3);
+	background-color: rgba(50, 50, 50, 0.75);
 	color: #ececec;
 	border: none;
-	outline: 1px solid #3a3a3a;
-	padding: 0.2rem 0.4rem;
+	outline: 1px solid #cccccc;
+	padding: 0.4rem 0.8rem;
 	transition: all 0.5s ease-in-out;
+}
+.btnClose {
+	font-size: 1rem;
+	font-weight: 600;
+	border-radius: 4px;
+	background-color: rgb(213, 23, 23);
+	color: #ececec;
+	border: none;
+	cursor: pointer;
+	position: absolute;
+	left: 50%;
+	top: 10px;
+	margin-left: -50px;
+	margin-top: 10px;
+	/* outline: 1px solid #898989; */
+	width: fit-content;
+	padding: 0.5rem 1rem;
+}
+.btnOpen {
+	font-size: 1rem;
+	font-weight: 600;
+	border-radius: 4px;
+	/* background-color: rgb(213, 23, 23); */
+	color: #ececec;
+	background-color: rgba(50, 50, 50, 0.75);
+	border: none;
+	cursor: pointer;
+	/* position: absolute;
+	left: 50%;
+	top: 10px;
+	margin-left: -50px;
+	margin-top: 10px; */
+	/* outline: 1px solid #898989; */
+	width: fit-content;
+	padding: 0.5rem 1rem;
 }

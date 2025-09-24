@@ -48,6 +48,11 @@ const setDefaultText = () => {
 		textAreaDefaultText
 	);
 };
+const useAppStore = create((set) => ({
+	showEnvironments: false,
+	toggleShowEnvironments: () =>
+		set((state) => ({ showEnvironments: !state.showEnvironments })),
+}));
 const useBalloonStore = create((set) => ({
 	label: 'Enter your emotion, \nfeeling or thought.\nThen let it float away',
 	text: 'Enter your emotion, \nfeeling or thought.\nThen let it float away',
@@ -272,8 +277,12 @@ function Experience(props) {
 			<OrbitControls
 				autoRotateSpeed={0.85}
 				zoomSpeed={0.75}
-				minPolarAngle={Math.PI / 4}
-				maxPolarAngle={Math.PI}
+				minPolarAngle={
+					useBalloonStore((state) => state.fixed) ? Math.PI / 4 : Math.PI / 4
+				}
+				maxPolarAngle={
+					useBalloonStore((state) => state.fixed) ? Math.PI / 2 : Math.PI
+				}
 				maxZoom={1}
 				minZoom={1}
 				enableZoom={false}
@@ -287,6 +296,7 @@ function InputBox(props) {
 	const { fixed } = useBalloonStore(
 		useShallow((state) => ({ fixed: state.fixed }))
 	);
+	const showEnvironments = useAppStore((state) => state.showEnvironments);
 	const textfieldProps = {};
 
 	return (
@@ -309,163 +319,201 @@ function InputBox(props) {
 				>
 					{fixed ? 'Let it go' : 'Set another emotion, feeling or thought free'}
 				</button>
-				<div className='env'>
+				{!showEnvironments && (
 					<button
-						onClick={(e) =>
-							useEnvironmentStore.getState().setEnv('golden gate hills')()
-						}
-						className='envBtn'
+						onClick={(e) => useAppStore.getState().toggleShowEnvironments()}
+						className='btnOpen'
 					>
-						Golden Gate hills
+						Show locations
 					</button>
-					<button
-						onClick={(e) =>
-							useEnvironmentStore.getState().setEnv('pine-picnic')()
-						}
-						className='envBtn'
-					>
-						Pine picnic
-					</button>
-					<button
-						onClick={(e) => useEnvironmentStore.getState().setEnv('meadow')()}
-						className='envBtn'
-					>
-						Meadow
-					</button>
-					<button
-						onClick={(e) =>
-							useEnvironmentStore.getState().setEnv('symmetrical garden')()
-						}
-						className='envBtn'
-					>
-						Symmetrical garden
-					</button>
-					<button
-						onClick={(e) =>
-							useEnvironmentStore.getState().setEnv('ballawley park')()
-						}
-						className='envBtn'
-					>
-						Ballawley park
-					</button>
-					<button
-						onClick={(e) =>
-							useEnvironmentStore.getState().setEnv('lakeside sunrise')()
-						}
-						className='envBtn'
-					>
-						Lakeside sunrise
-					</button>
-					<button
-						onClick={(e) => useEnvironmentStore.getState().setEnv('rogland')()}
-						className='envBtn'
-					>
-						Rogland
-					</button>
-					<button
-						onClick={(e) =>
-							useEnvironmentStore.getState().setEnv('passendorf snow')()
-						}
-						className='envBtn'
-					>
-						Passendorf snow
-					</button>
-					<button
-						onClick={(e) =>
-							useEnvironmentStore.getState().setEnv('stierberg sunrise')()
-						}
-						className='envBtn'
-					>
-						Stierberg sunrise
-					</button>
-					<button
-						onClick={(e) =>
-							useEnvironmentStore.getState().setEnv('little paris')()
-						}
-						className='envBtn'
-					>
-						Little Paris
-					</button>
-					<button
-						onClick={(e) =>
-							useEnvironmentStore.getState().setEnv('medieval cafe')()
-						}
-						className='envBtn'
-					>
-						Medieval cafe
-					</button>
-					<button
-						onClick={(e) =>
-							useEnvironmentStore.getState().setEnv('chinese garden')()
-						}
-						className='envBtn'
-					>
-						Chinese garden
-					</button>
-					<button
-						onClick={(e) =>
-							useEnvironmentStore.getState().setEnv('bluegrotto')()
-						}
-						className='envBtn'
-					>
-						Blue Grotto
-					</button>
-					<button
-						onClick={(e) => useEnvironmentStore.getState().setEnv('canals')()}
-						className='envBtn'
-					>
-						Canals
-					</button>
+				)}
+				{showEnvironments && (
+					<>
+						<div className='env'>
+							<button
+								onClick={(e) => useAppStore.getState().toggleShowEnvironments()}
+								className='btnClose'
+							>
+								I'm Done
+							</button>
+							<div className='inner'>
+								<button
+									onClick={(e) =>
+										useEnvironmentStore.getState().setEnv('golden gate hills')()
+									}
+									className='envBtn'
+								>
+									Golden Gate hills
+								</button>
+								<button
+									onClick={(e) =>
+										useEnvironmentStore.getState().setEnv('pine-picnic')()
+									}
+									className='envBtn'
+								>
+									Pine picnic
+								</button>
+								<button
+									onClick={(e) =>
+										useEnvironmentStore.getState().setEnv('meadow')()
+									}
+									className='envBtn'
+								>
+									Meadow
+								</button>
+								<button
+									onClick={(e) =>
+										useEnvironmentStore
+											.getState()
+											.setEnv('symmetrical garden')()
+									}
+									className='envBtn'
+								>
+									Symmetrical garden
+								</button>
+								<button
+									onClick={(e) =>
+										useEnvironmentStore.getState().setEnv('ballawley park')()
+									}
+									className='envBtn'
+								>
+									Ballawley park
+								</button>
+								<button
+									onClick={(e) =>
+										useEnvironmentStore.getState().setEnv('lakeside sunrise')()
+									}
+									className='envBtn'
+								>
+									Lakeside sunrise
+								</button>
+								<button
+									onClick={(e) =>
+										useEnvironmentStore.getState().setEnv('rogland')()
+									}
+									className='envBtn'
+								>
+									Rogland
+								</button>
+								<button
+									onClick={(e) =>
+										useEnvironmentStore.getState().setEnv('passendorf snow')()
+									}
+									className='envBtn'
+								>
+									Passendorf snow
+								</button>
+								<button
+									onClick={(e) =>
+										useEnvironmentStore.getState().setEnv('stierberg sunrise')()
+									}
+									className='envBtn'
+								>
+									Stierberg sunrise
+								</button>
+								<button
+									onClick={(e) =>
+										useEnvironmentStore.getState().setEnv('little paris')()
+									}
+									className='envBtn'
+								>
+									Little Paris
+								</button>
+								<button
+									onClick={(e) =>
+										useEnvironmentStore.getState().setEnv('medieval cafe')()
+									}
+									className='envBtn'
+								>
+									Medieval cafe
+								</button>
+								<button
+									onClick={(e) =>
+										useEnvironmentStore.getState().setEnv('chinese garden')()
+									}
+									className='envBtn'
+								>
+									Chinese garden
+								</button>
+								<button
+									onClick={(e) =>
+										useEnvironmentStore.getState().setEnv('bluegrotto')()
+									}
+									className='envBtn'
+								>
+									Blue Grotto
+								</button>
+								<button
+									onClick={(e) =>
+										useEnvironmentStore.getState().setEnv('canals')()
+									}
+									className='envBtn'
+								>
+									Canals
+								</button>
 
-					<button
-						onClick={(e) =>
-							useEnvironmentStore.getState().setEnv('docklands')()
-						}
-						className='envBtn'
-					>
-						Docklands
-					</button>
-					<button
-						onClick={(e) => useEnvironmentStore.getState().setEnv('garden')()}
-						className='envBtn'
-					>
-						Garden
-					</button>
-					<button
-						onClick={(e) => useEnvironmentStore.getState().setEnv('hill')()}
-						className='envBtn'
-					>
-						Hill
-					</button>
-					<button
-						onClick={(e) => useEnvironmentStore.getState().setEnv('park')()}
-						className='envBtn'
-					>
-						Park
-					</button>
-					<button
-						onClick={(e) =>
-							useEnvironmentStore.getState().setEnv('studio garden')()
-						}
-						className='envBtn'
-					>
-						Studio Garden
-					</button>
-					<button
-						onClick={(e) => useEnvironmentStore.getState().setEnv('street')()}
-						className='envBtn'
-					>
-						Street
-					</button>
-					<button
-						onClick={(e) =>
-							useEnvironmentStore.getState().setEnv('sunny country road')()
-						}
-						className='envBtn'
-					>
-						Sunny Country Road
-					</button>
-				</div>
+								<button
+									onClick={(e) =>
+										useEnvironmentStore.getState().setEnv('docklands')()
+									}
+									className='envBtn'
+								>
+									Docklands
+								</button>
+								<button
+									onClick={(e) =>
+										useEnvironmentStore.getState().setEnv('garden')()
+									}
+									className='envBtn'
+								>
+									Garden
+								</button>
+								<button
+									onClick={(e) =>
+										useEnvironmentStore.getState().setEnv('hill')()
+									}
+									className='envBtn'
+								>
+									Hill
+								</button>
+								<button
+									onClick={(e) =>
+										useEnvironmentStore.getState().setEnv('park')()
+									}
+									className='envBtn'
+								>
+									Park
+								</button>
+								<button
+									onClick={(e) =>
+										useEnvironmentStore.getState().setEnv('studio garden')()
+									}
+									className='envBtn'
+								>
+									Studio Garden
+								</button>
+								<button
+									onClick={(e) =>
+										useEnvironmentStore.getState().setEnv('street')()
+									}
+									className='envBtn'
+								>
+									Street
+								</button>
+								<button
+									onClick={(e) =>
+										useEnvironmentStore
+											.getState()
+											.setEnv('sunny country road')()
+									}
+									className='envBtn'
+								>
+									Sunny Country Road
+								</button>
+							</div>
+						</div>
+					</>
+				)}
 			</div>
 		</Html>
 	);
