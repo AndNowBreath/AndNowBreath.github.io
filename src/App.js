@@ -473,52 +473,80 @@ function InputBox(props) {
 
 function Balloon(props) {
 	const { nodes } = useGLTF('balloon.glb');
-	const { debug } = useControls({ debug: false, hidden: true });
-	const {
-		pos,
-		rotX,
-		rotY,
-		rotZ,
-		scaleX,
-		scaleY,
-		scaleZ,
-		specularIntensity,
-		specularColor,
-		iridescence,
-		iridescenceIOR,
-		reflectivity,
-		dispersion,
-		roughness,
-		metalness,
-		clearcoat,
-		clearcoatRoughness,
-	} = useControls({
-		hidden: true,
-		pos: {
-			x: 0,
-			y: 180,
-			z: -30.5,
-		},
-		// posX: 0,
-		// posY: 180.0,
-		// posZ: -30.5,
-		rotX: -1.25,
-		rotY: -0.75,
-		rotZ: 0.5,
-		scaleX: 150.0,
-		scaleY: 60,
-		scaleZ: 75,
-		specularIntensity: 0.75,
-		specularColor: '#757575ff',
-		iridescence: 0.5,
-		iridescenceIOR: 1.5,
-		reflectivity: 1,
-		dispersion: 0.5,
-		roughness: 0.05,
-		metalness: 0.1,
-		clearcoat: 0.1,
-		clearcoatRoughness: 1,
-	});
+	// const { debug } = useControls(
+	// 	{ debug: false },
+	// 	{ hidden: true, collapsed: true }
+	// );
+	const debug = false;
+	const pos = {
+		x: 0,
+		y: 180,
+		z: -30.5,
+	};
+	const rotX = -1.25;
+	const rotY = -0.75;
+	const rotZ = 0.5;
+	const scaleX = 150.0;
+	const scaleY = 60;
+	const scaleZ = 75;
+	const specularIntensity = 0.75;
+	const specularColor = '#757575ff';
+	const iridescence = 0.5;
+	const iridescenceIOR = 1.5;
+	const reflectivity = 1;
+	const dispersion = 0.5;
+	const roughness = 0.05;
+	const metalness = 0.1;
+	const clearcoat = 0.1;
+	const clearcoatRoughness = 1;
+
+	// const {
+	// 	pos,
+	// 	rotX,
+	// 	rotY,
+	// 	rotZ,
+	// 	scaleX,
+	// 	scaleY,
+	// 	scaleZ,
+	// 	specularIntensity,
+	// 	specularColor,
+	// 	iridescence,
+	// 	iridescenceIOR,
+	// 	reflectivity,
+	// 	dispersion,
+	// 	roughness,
+	// 	metalness,
+	// 	clearcoat,
+	// 	clearcoatRoughness,
+	// } = useControls(
+	// 	{
+	// 		pos: {
+	// 			x: 0,
+	// 			y: 180,
+	// 			z: -30.5,
+	// 		},
+	// 		// posX: 0,
+	// 		// posY: 180.0,
+	// 		// posZ: -30.5,
+	// 		rotX: -1.25,
+	// 		rotY: -0.75,
+	// 		rotZ: 0.5,
+	// 		scaleX: 150.0,
+	// 		scaleY: 60,
+	// 		scaleZ: 75,
+	// 		specularIntensity: 0.75,
+	// 		specularColor: '#757575ff',
+	// 		iridescence: 0.5,
+	// 		iridescenceIOR: 1.5,
+	// 		reflectivity: 1,
+	// 		dispersion: 0.5,
+	// 		roughness: 0.05,
+	// 		metalness: 0.1,
+	// 		clearcoat: 0.1,
+	// 		clearcoatRoughness: 1,
+	// 	},
+	// 	{ hidden: true, collapsed: true }
+	// );
 	const meshRef = useRef();
 	useFrame(({ clock }) => {
 		meshRef.current.position.x +=
@@ -618,7 +646,11 @@ function TextDecal({ ...props }) {
 }
 
 function Sticker({ url, ...props }) {
-	const { debug } = useControls({ debug: false, hidden: true });
+	// const { debug } = useControls(
+	// 	{ debug: false },
+	// 	{ hidden: true, collapsed: true }
+	// );
+	const debug = false;
 	const emoji = useTexture(url);
 	return (
 		<Decal debug={debug} {...props}>
