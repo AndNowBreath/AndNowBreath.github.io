@@ -493,6 +493,7 @@ function Balloon(props) {
 		clearcoat,
 		clearcoatRoughness,
 	} = useControls({
+		hidden: true,
 		pos: {
 			x: 0,
 			y: 180,
@@ -617,7 +618,7 @@ function TextDecal({ ...props }) {
 }
 
 function Sticker({ url, ...props }) {
-	const { debug } = useControls({ debug: false });
+	const { debug } = useControls({ debug: false, hidden: true });
 	const emoji = useTexture(url);
 	return (
 		<Decal debug={debug} {...props}>
