@@ -473,7 +473,7 @@ function InputBox(props) {
 
 function Balloon(props) {
 	const { nodes } = useGLTF('balloon.glb');
-	const { debug } = useControls({ debug: false });
+	const { debug } = useControls({ debug: false, hidden: true });
 	const {
 		pos,
 		rotX,
