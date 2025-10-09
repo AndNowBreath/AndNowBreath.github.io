@@ -32,7 +32,7 @@ textarea {
 	font-family: 'Kaushan Script', cursive;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	font-size: 1.75rem;
+	font-size: 1.5rem;
 	mix-blend-mode: difference;
 }
 textarea {
@@ -57,6 +57,7 @@ button {
 	width: 600px;
 	margin-left: -300px;
 	margin-bottom: -250px;
+	line-height: 1;
 	transition: all 0.5s ease-in-out;
 }
 .inputs.hide {
@@ -68,18 +69,25 @@ button {
 	color: #fff;
 	mix-blend-mode: difference;
 	width: 280px;
-	height: 140px;
+	height: fit-content;
 	text-align: center;
 	border-radius: 10px;
 	outline: none;
 	border: none;
-	padding: 0.5rem;
+	padding: 1.5rem 0.5rem;
 	opacity: 1;
+	line-height: 1.2;
 	transition: all 0.5s ease-in-out;
-	overflow: hidden;
+	position: relative;
+	font-size: 1.65rem;
 }
 .input::placeholder {
 	color: #fff;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 100%;
+	transform: translate(-50%, -50%);
 }
 .hide .input {
 	height: 0;
@@ -93,6 +101,9 @@ button {
 	outline: none;
 	border: none;
 	background-color: rgba(50, 50, 50, 0.4);
+	&::placeholder {
+		opacity: 0;
+	}
 }
 .inputs .title {
 	font-size: 1.35rem;

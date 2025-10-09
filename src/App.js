@@ -23,7 +23,7 @@ import {
 	Html,
 	RenderTexture,
 } from '@react-three/drei';
-import { useControls } from 'leva';
+// import { useControls } from 'leva';
 // import * as BufferGeometryUtils from 'three/addons/utils/BufferGeometryUtils.js'
 import { create } from 'zustand';
 import { useShallow } from 'zustand/react/shallow';
@@ -31,7 +31,7 @@ import { useShallow } from 'zustand/react/shallow';
 // import { clearcoat, specularColor } from 'three/tsl';
 // https://www.youtube.com/watch?v=IonioG40MB0
 const textAreaDefaultText =
-	'Enter your emotion, \nfeeling or thought.\nThen let it float away';
+	'Type your emotion, \nfeeling or thought here.\nThen let it float away';
 // const apartment = await import('@pmndrs/assets/hdri/apartment.exr');
 // const originalPos = {
 // 	x: 0,
@@ -42,11 +42,11 @@ const setDefaultText = () => {
 	const textfield = document.getElementById('textarea');
 	textfield.value = '';
 	useBalloonStore.setState({ label: textAreaDefaultText });
-	console.log(
-		'set default text textAreaDefaultText ',
-		textfield,
-		textAreaDefaultText
-	);
+	// console.log(
+	// 	'set default text textAreaDefaultText ',
+	// 	textfield,
+	// 	textAreaDefaultText
+	// );
 };
 const useAppStore = create((set) => ({
 	showEnvironments: false,
@@ -307,7 +307,7 @@ function InputBox(props) {
 					className={'input'}
 					maxLength={60}
 					id='textarea'
-					placeholder='Enter your emotion, feeling or thought. Then let it float away'
+					placeholder={textAreaDefaultText}
 					{...textfieldProps}
 					onClick={(e) => useBalloonStore.setState({ userSelected: true })}
 					onFocus={(e) => useBalloonStore.setState({ userSelected: true })}
@@ -324,7 +324,7 @@ function InputBox(props) {
 						onClick={(e) => useAppStore.getState().toggleShowEnvironments()}
 						className='btnOpen'
 					>
-						Show locations
+						Select a location
 					</button>
 				)}
 				{showEnvironments && (
