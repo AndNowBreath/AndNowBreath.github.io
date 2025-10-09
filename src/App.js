@@ -54,8 +54,8 @@ const useAppStore = create((set) => ({
 		set((state) => ({ showEnvironments: !state.showEnvironments })),
 }));
 const useBalloonStore = create((set) => ({
-	label: 'Enter your emotion, \nfeeling or thought.\nThen let it float away',
-	text: 'Enter your emotion, \nfeeling or thought.\nThen let it float away',
+	label: textAreaDefaultText, //'Enter your emotion, \nfeeling or thought.\nThen let it float away',
+	text: textAreaDefaultText, //,
 	fixed: true,
 	show: true,
 	userSelected: false,
