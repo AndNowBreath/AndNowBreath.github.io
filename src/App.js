@@ -250,7 +250,7 @@ function Experience(props) {
 				angle={0.5}
 				penumbra={0.5}
 				intensity={0.85}
-				color={'#3a3a3aff'}
+				color={'#3a3a3a'}
 				castShadow
 			/>
 			<Environment
@@ -310,7 +310,10 @@ function InputBox(props) {
 					placeholder={textAreaDefaultText}
 					{...textfieldProps}
 					onClick={(e) => useBalloonStore.setState({ userSelected: true })}
-					onFocus={(e) => useBalloonStore.setState({ userSelected: true })}
+					onFocus={(e) => {
+						useBalloonStore.setState({ userSelected: true })
+						 useBalloonStore.setState({ label: e.target.value })
+					}}
 					onChange={(e) => useBalloonStore.setState({ label: e.target.value })}
 				/>
 				<button
@@ -531,7 +534,7 @@ function Balloon(props) {
 	const scaleY = 60;
 	const scaleZ = 75;
 	const specularIntensity = 0.75;
-	const specularColor = '#757575ff';
+	const specularColor = '#757575';
 	const iridescence = 0.5;
 	const iridescenceIOR = 1.5;
 	const reflectivity = 1;
@@ -600,6 +603,9 @@ function Balloon(props) {
 		easing.damp(meshRef.current.material, 'speed', 4, 0.5, delta);
 	});
 
+	const stickerScaleX= 13;
+	const stickerScaleY = 11;
+	const stickerScaleZ = 104;
 	return (
 		<mesh
 			ref={meshRef}
@@ -617,7 +623,7 @@ function Balloon(props) {
 				color='rgba(170, 0, 0, 1)'
 				roughness={roughness}
 				metalness={metalness}
-				emissive={'rgb(50, 50, 50,0.2)'}
+				emissive={'#323232'}
 				specularIntensity={specularIntensity}
 				specularColor={specularColor}
 				iridescence={iridescence}
@@ -636,10 +642,11 @@ function Balloon(props) {
 				rotation={[rotX, rotY, rotZ]}
 			/>
 			<Sticker
-				url='/Sticjer_1024x1024@2x.png'
-				position={[10.5, 17.5, 5.0]}
-				rotation={-0.5}
-				scale={7}
+				url='/ummiIcon.png'
+				position={[pos.x-1, pos.y-33, pos.z+20]}
+				scale={[stickerScaleX*1.5,stickerScaleY*1.5,stickerScaleZ*1.5]}
+				
+				rotation={[0, 0, 3.1]}
 			/>
 		</mesh>
 	);
@@ -694,11 +701,11 @@ function Sticker({ url, ...props }) {
 	const debug = false;
 	const emoji = useTexture(url);
 	return (
-		<Decal debug={debug} {...props}>
+		<Decal debug={debug} {...props} >
 			<meshPhysicalMaterial
 				transparent
 				polygonOffset
-				polygonOffsetFactor={-10}
+				polygonOffsetFactor={-4}
 				map={emoji}
 				map-flipY={false}
 				map-anisotropy={16}
