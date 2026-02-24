@@ -281,7 +281,7 @@ function Experience(props) {
 					useBalloonStore((state) => state.fixed) ? Math.PI / 4 : Math.PI / 4
 				}
 				maxPolarAngle={
-					useBalloonStore((state) => state.fixed) ? Math.PI / 2 : Math.PI
+					useBalloonStore((state) => state.fixed) ? Math.PI / 1.5 : Math.PI
 				}
 				maxZoom={1}
 				minZoom={1}

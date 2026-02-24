@@ -145,17 +145,32 @@ button.btn {
 .env {
 	position: absolute;
 	top: 0;
-	margin-top: -50%;
-	z-index: 1;
-	padding: 2.5rem;
+	left: 50%;
+	width: 90%;
+	height: 100vh;
+	/* margin-top: -50%; */
+	transform: translate(-50%, -50%);
+	/* margin-left: -50%; */
 	background-color: rgba(50, 50, 50, 0.75);
 	border-radius: 14px;
+
+	/* margin-top: -50%; */
+	max-width: 400px;
+	z-index: 1;
+	padding: 2.5rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+
 	.inner {
 		display: flex;
 		column-gap: 1cqw;
 		margin-top: 2rem;
-		row-gap: 1rem;
-		max-width: 400px;
+		gap: 1rem;
+		/* width: 90%;
+		transform: translate(-50%, -50%); */
+
 		/* margin: 0 auto; */
 		align-items: center;
 		justify-content: center;
@@ -183,12 +198,10 @@ button.btn {
 	cursor: pointer;
 	position: absolute;
 	left: 50%;
-	top: 10px;
+	top: 4rem;
 	margin-left: -50px;
-	margin-top: 10px;
-	/* outline: 1px solid #898989; */
 	width: fit-content;
-	padding: 0.5rem 1rem;
+	padding: 0.75rem 1.5rem;
 }
 .btnOpen {
 	font-size: 1rem;

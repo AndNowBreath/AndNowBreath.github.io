@@ -4,36 +4,23 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-		<meta name="description" content="And Now Breath - a medatitive and interactive app for positivemental health" />
-		<link rel="apple-touch-icon" sizes="57x57" href="%PUBLIC_URL%/favIcon/apple-icon-57x57.png" />
-		<link rel="apple-touch-icon" sizes="60x60" href="%PUBLIC_URL%/favIcon/apple-icon-60x60.png" />
-		<link rel="apple-touch-icon" sizes="72x72" href="%PUBLIC_URL%/favIcon/apple-icon-72x72.png" />
-		<link rel="apple-touch-icon" sizes="76x76" href="%PUBLIC_URL%/favIcon/apple-icon-76x76.png" />
-		<link rel="apple-touch-icon" sizes="114x114" href="%PUBLIC_URL%/favIcon/apple-icon-114x114.png" />
-		<link rel="apple-touch-icon" sizes="120x120" href="%PUBLIC_URL%/favIcon/apple-icon-120x120.png" />
-		<link rel="apple-touch-icon" sizes="144x144" href="%PUBLIC_URL%/favIcon/apple-icon-144x144.png" />
-		<link rel="apple-touch-icon" sizes="152x152" href="%PUBLIC_URL%/favIcon/apple-icon-152x152.png" />
-		<link rel="apple-touch-icon" sizes="180x180" href="%PUBLIC_URL%/favIcon/apple-icon-180x180.png" />
-		<link rel="icon" type="image/png" sizes="192x192" href="%PUBLIC_URL%/favIcon/android-icon-192x192.png" />
-		<link rel="icon" type="image/png" sizes="32x32" href="%PUBLIC_URL%/favIcon/favicon-32x32.png" />
-		<link rel="icon" type="image/png" sizes="96x96" href="%PUBLIC_URL%/favIcon/favicon-96x96.png" />
-		<link rel="icon" type="image/png" sizes="16x16" href="%PUBLIC_URL%/favIcon/favicon-16x16.png" />
-		<link rel="manifest" href="%PUBLIC_URL%/favIcon/manifest.json" />
-		<meta name="msapplication-TileColor" content="#333333" />
-		<meta name="msapplication-TileImage" content="%PUBLIC_URL%/favIcon/ms-icon-144x144.png" />
+		<meta name="description" content="And Now Breath - an interactive app for positive mental health" />
+		<link rel="manifest" href="/manifest.webmanifest" />
+		<link rel="icon" type="image/png" sizes="any" href="/icons/maskable_icon_x48.png" />
+		<link rel="mask-icon" href="/icons/maskable_icon.png" color="#FFFFFF" />
+		<link rel="apple-touch-icon" href="/icons/maskable_icon.png" sizes="any" />
 		<meta name="theme-color" content="#333333" />
 		<title>And Now Breath</title>
 
-		<!-- Import Ammo.js -->
+		<!--  Ammo.js -->
 		<script src="https://cdn.jsdelivr.net/gh/kripken/ammo.js@master/builds/ammo.js"></script>
-		<!-- Import GL-Bench (More detailed GPU/CPU metrics) -->
+		<!-- GL-Bench (More detailed GPU/CPU metrics) -->
 		<script src="https://cdn.jsdelivr.net/npm/gl-bench/dist/gl-bench.js"></script>
 	</head>
 	<body>
 		<noscript>You need to enable JavaScript to run this app.</noscript>
 		<div id="root"></div>
 
-		<!-- Import Map for Three.js -->
 		<script type="importmap">
 			{
 				"imports": {
